@@ -20,16 +20,56 @@ class App extends Component {
       },
       {
         position: { lat: 33.7476109, lng: -84.3945527 },
-        info: { name: "Alpha Delta Nu Covd 19 Giftcard giveaway" }
+        info: { name: "Meyer's Health Center" }
       },
       {
         position: { lat: 33.78157424926758, lng: -84.41114807128906 },
-        info: { name: "Alpha Delta Nu Covd 19 Giftcard giveaway" }
+        info: { name: "City of Refuge" }
+      },
+      {
+        position: { lat: 33.91323300953537, lng: -84.36183582372979 },
+        info: { name: "Salvation Army Heating Station" }
+      },
+      {
+        position: { lat: 33.785491943359375, lng: -84.44329833984375 },
+        info: { name: "Covenant House Heating Station" }
+      },
+      {
+        position: { lat: 33.7476109, lng: -84.3945527 },
+        info: { name: "Gateway Warming Station" }
+      },
+      {
+        position: { lat: 33.77176284790039, lng: -84.47486877441406 },
+        info: { name: "Love Beyond Walls Hand washing Station" }
+      },
+      {
+        position: { lat: 33.89816, lng: -84.28326 },
+        info: { name: "I Care Atlanta Food Bank" }
+      },
+      {
+        position: { lat: 33.8158454, lng: -84.3432882 },
+        info: { name: "Atlanta Community Food Bank" }
+      },
+      {
+        position: { lat: 33.77176284790039, lng: -84.47486877441406 },
+        info: { name: "Love Beyond Walls Hand washing Station" }
+      },
+      {
+        position: { lat: 33.97802734375, lng: -84.5534439086914 },
+        info: { name: "Must Ministries" }
+      },
+      {
+        position: { lat: 33.698829650878906, lng: -84.13639068603516 },
+        info: {
+          name: "New Birth Baptist (COVD-19 Drive through testing) "
+        }
+      },
+      {
+        position: { lat: 33.91024398803711, lng: -84.58257293701172 },
+        info: { name: "Cobb County Park (COVD-19 drive through testing) " }
       }
-
-]
-
-}
+    ]
+  };
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -47,26 +87,35 @@ class App extends Component {
     }
   };
 
-  image =
-    "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
-
-  marker = (
-    <div>
-      {this.state.markers.map((data, i) => {
-        console.log(data);
-        return (
-          <Marker
-            position={data.position}
-            name={data.info.name}
-            onClick={this.onMarkerClick}
-          />
-        );
-      })}
-    </div>
-  );
+  marker = () => {
+    let markers = this.state.markers.map((data) => {
+      console.log(data);
+      console.log("data");
+      return (
+        <Marker
+          position={data.position}
+          name={data.info.name}
+          onClick={this.onMarkerClick}
+        />
+      );
+    });
+    return markers;
+  };
 
   // changeHandler = (event) => {};
 
+  // generateMarkers = () => {
+  //   this.state.markers.map((data, i) => {
+  //     console.log(data);
+  //     return (
+  //       <Marker
+  //         position={data.position}
+  //         name={data.info.name}
+  //         onClick={this.onMarkerClick}
+  //       />
+  //     );
+  //   });
+  // };
   setEvent = (events) => {
     this.setState({
       events: events
@@ -78,28 +127,22 @@ class App extends Component {
       <div className="App">
         <div className="jumbotron">
           <h1> Welcome to Helping Hand</h1>
+          <h2> Hands Extended: ({this.state.markers.length})</h2>
         </div>
         <div>
           <CurrentLocation
             centerAroundCurrentLocation
             google={this.props.google}
           >
-            <Marker
-              onClick={this.onMarkerClick}
-              name={"Kenyatta International Convention Centre"}
-            />
+            <Marker onClick={this.onMarkerClick} name={"Current Location"} />
 
+            {this.marker()}
 
-            {marker}
-
-            <Marker
+            {/* <Marker
               onClick={this.onMarkerClick}
               name={this.state.markers[0].info.name}
               position={this.state.markers[0].position}
-              icon={image}
-            />
-
-    
+            /> */}
 
             <InfoWindow
               marker={this.state.activeMarker}
